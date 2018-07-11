@@ -1,10 +1,10 @@
 package Pfunct;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
+import org.apache.commons.io.*;
 import java.util.Scanner;
 
-//import java.io.*;
+import java.io.*;
 
 
 public class Parser {
@@ -37,6 +37,11 @@ public class Parser {
         }
 
         System.out.println("Line Count: " + lineCount + "\t Comments Count: " + commentsCount);
+
+           File fileFeatures = new File(
+                   "Homework1AdditionalFiles/jEdit4.3/jEdit4.3ListOfFeatureIDs.txt");
+         //  String line = (String) FileUtils.readLines(fileFeatures).get(lineCount);
+         //  System.out.println(line);
 
         //   M_Writer(doc,lineCount);
 
