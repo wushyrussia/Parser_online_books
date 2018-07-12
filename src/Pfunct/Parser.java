@@ -69,7 +69,7 @@ public class Parser {
 
            writer1.flush();
            writer1.close();
-                        } catch (IOException ex) {
+                        } catch (IOException ex) { //
 
            System.out.println(ex.getMessage());
        }
