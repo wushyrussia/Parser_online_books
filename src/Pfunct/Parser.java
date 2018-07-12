@@ -1,7 +1,10 @@
 package Pfunct;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.apache.commons.io.*;
+
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import java.io.*;
@@ -13,7 +16,7 @@ public class Parser {
 
         Document doc = Jsoup.connect("http://ka4ka.ru/lib/index.php?")
 .data("mod", "read_book")
-                .data("bid","19942")
+                .data("bid","246111")
                 .data("sym", "9000")
 // and other hidden fields which are being passed in post request.
                 .userAgent("Mozilla")
@@ -34,32 +37,10 @@ public class Parser {
             if (data.startsWith("//")) commentsCount++;
 
             lineCount++;
-        }
-
-        System.out.println("Line Count: " + lineCount + "\t Comments Count: " + commentsCount);
-
-           File fileFeatures = new File(
-                   "Homework1AdditionalFiles/jEdit4.3/jEdit4.3ListOfFeatureIDs.txt");
-         //  String line = (String) FileUtils.readLines(fileFeatures).get(lineCount);
-         //  System.out.println(line);
-
-        //   M_Writer(doc,lineCount);
-
-     //      M_NumberPage(lineCount,doc);
+        }System.out.println("Line Count: " + lineCount + "\t Comments Count: " + commentsCount);
+           M_Writer(doc, lineCount);
     }
-  /*  private static void M_NumberPage(int line, Document doco) throws Exception {
-        line = line-31; //get the number string with number page
-        BufferedReader br = new BufferedReader(doco);
-        File f = new File("/root/2/Files.txt");
-        BufferedReader fin = new BufferedReader(new FileReader(doco));
-        String name;
-        String lines;
-        System.out.println("Print File "+f.getName()+"? y/n");
-        name = br.readLine();
-        if(name.equals("y"))
-            while ((lines = fin.readLine()) != null) System.out.println(lines);
-    }*/
-   /* public static void M_Writer(Document doc, int lineNumber) throws IOException {
+   private static void M_Writer(Document doc, int lineNumber) throws IOException {
 
         try (FileWriter writer = new FileWriter("bufer", false)) {
             // запись всей строки
@@ -67,14 +48,18 @@ public class Parser {
             // запись по символам
 
             writer.flush();
+
+            lineNumber = lineNumber-32; //get the number string with number page
+
+            String line32 = Files.readAllLines(Paths.get("bufer")).get(lineNumber);
+            System.out.println(line32);
+
+
         } catch (IOException ex) {
 
             System.out.println(ex.getMessage());
         }
 
     }
-    public void  M_line(){
 
-
-        }*/
 }
