@@ -1,6 +1,7 @@
 package Pfunct;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 
 import java.nio.file.Files;
@@ -48,17 +49,31 @@ public class Parser {
             // запись по символам
 
             writer.flush();
+            writer.close();
 
-            lineNumber = lineNumber-32; //get the number string with number page
-
-            String line32 = Files.readAllLines(Paths.get("bufer")).get(lineNumber);
-            System.out.println(line32);
 
 
         } catch (IOException ex) {
 
             System.out.println(ex.getMessage());
         }
+                        try (FileWriter writer1 = new FileWriter("bufer1", false)) {
+            //записали строку с количеством страниц в буферный файл
+           lineNumber = lineNumber-32; //get the number string with number page
+          String line32 = Files.readAllLines(Paths.get("bufer")).get(lineNumber);
+          writer1.write(String.valueOf(line32));
+                            // запись по символам
+
+                            System.out.println(line32);
+           // запись по символам
+
+           writer1.flush();
+           writer1.close();
+                        } catch (IOException ex) {
+
+           System.out.println(ex.getMessage());
+       }
+
 
     }
 
