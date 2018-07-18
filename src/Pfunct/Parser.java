@@ -107,7 +107,7 @@ public class Parser {
        try {
 
 
-           for (int nomb = 1; nomb!=page; nomb++) {
+           for (int nomb = 1; nomb<=page; nomb++) {
                System.out.println("бууки");
                    Document doc2 = Jsoup.connect("http://ka4ka.ru/lib/index.php?")
                            .data("mod", "read_book")
