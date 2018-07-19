@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import java.io.*;
 
-
+ 
 public class Parser {
     public static void M_Cparser() throws Exception {
         String bid;
@@ -72,9 +72,6 @@ public class Parser {
            lineNumber = lineNumber - 32; //get the number string with number page
            String line32 = Files.readAllLines(Paths.get("bufer")).get(lineNumber);
            writer1.write(String.valueOf(line32));
-           String pa = (String.valueOf(line32));
-           System.out.println(pa + "  test");
-
            writer1.flush();
            writer1.close();
 
