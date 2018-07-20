@@ -1,4 +1,4 @@
-package Pfunct;
+package pFunction;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -130,6 +130,7 @@ public class Parser {
            e.printStackTrace();
        }
    }
+   
     private static void M_Add_pg_to_File(Document doc2) throws Exception {
         int line = M_LineCounterB(doc2)-40;
         System.out.println("M_Add_pg_to_File" + line );
@@ -147,14 +148,15 @@ public class Parser {
         BufferedWriter bw = new BufferedWriter(new FileWriter("bufer3",true));//открываем для записи файл книги
         String str;
         System.out.println(line);
-         // 40 строк в коде - текст, не относящийся к книге. line - все строки страницы минус 40 лишних
+		// 40 строк в коде - текст, не относящийся к книге. line - все строки страницы минус 40 лишних
         for(int i = 1; i != line; i++){ // пока мы не дойдем до строки, где начинаеться лишние 40 строк
             str=br.readLine();
+			
             bw.write(str+'\n');//построчно записываем книгу в файл
         }
         br.close();
         bw.close();
-
+		
 
     }
  public static void M_clear(){
