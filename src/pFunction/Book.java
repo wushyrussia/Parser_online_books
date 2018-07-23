@@ -1,11 +1,11 @@
 package pFunction;
-import org.jsoup.nodes.Document;
 import org.jsoup.Jsoup;
-import java.util.Scanner;
+import org.jsoup.nodes.Document;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.io.*;
-import java.io.LineNumberReader;
+import java.util.Scanner;
 public class Book
 {
 	
@@ -14,13 +14,13 @@ public class Book
 		Scanner bidIn = new Scanner(System.in);
 		System.out.print("Set the BID of book:");
 	String bid = bidIn.next();
-	int page = 0;
+	int page1 = 0;
 	
 		//set of bid
 		System.out.println("get page");
-		page = get1Page(bid); // get the number of pages in the book
+		page1 = get1Page(bid); // get the number of pages in the book
 		System.out.println("download");
-		downLoadBook(bid,page); // download book to bufer 
+		downLoadBook(bid,page1); // download book to bufer
 		System.out.println("finished");
 		
 	}
@@ -33,7 +33,7 @@ public class Book
 	//	bid = scan.next();
 		//get thirst page
 		System.out.println("connect");
-		Document pageBook = Jsoup.connect("http://www.ka4ka.ru/lib/index.php")
+		Document pageBook = Jsoup.connect("http://www.ka4ka.ru/lib/index.php?")
 		.data("mod","")
 		.data("bid",bid)
 		.data("sym","9000")
@@ -53,10 +53,14 @@ public class Book
 			ch++;
 			 }
 			 ch = ch - 32;
-			 System.out.println("error?");
-			 
-			String line32 = Files.readAllLines(Paths.get(String.valueOf(pageBook))).get(ch);
+
+		FileWriter writer = new FileWriter("bufer", false);
+		writer.write(String.valueOf(pageBook));
+		writer.flush();
+		writer.close();
+			String line32 = Files.readAllLines(Paths.get("bufer")).get(ch);
 			System.out.println("get page finished - download");
+		System.out.println(line32);
 			Document pg = new Document(line32);//jsoup 
 			page = Integer.parseInt(pg.text()
 			.substring(0, pg.text()
@@ -68,7 +72,7 @@ public class Book
 	private static void downLoadBook(String bid,int page) throws IOException{
 		
 		for (int numb =1; numb <= page; numb++){
-		Document DBook = Jsoup.connect("http://www.ka4ka.ru/lib/index.php")
+		Document DBook = Jsoup.connect("http://www.ka4ka.ru/lib/index.php?")
 		.data("mod","read_book")
 		.data("bid", bid)
 		.data("sym","9000")
