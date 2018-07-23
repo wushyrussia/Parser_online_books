@@ -33,8 +33,8 @@ public class Book
 	//	bid = scan.next();
 		//get thirst page
 		System.out.println("connect");
-		Document pageBook = Jsoup.connect("http://www.ka4ka.ru/lib/index.php?")
-		.data("mod","")
+		Document pageBook = Jsoup.connect("http://ka4ka.ru/lib/index.php?")
+		.data("mod","read_book")
 		.data("bid",bid)
 		.data("sym","9000")
 		.userAgent("Mozila")
@@ -59,20 +59,25 @@ public class Book
 		writer.flush();
 		writer.close();
 			String line32 = Files.readAllLines(Paths.get("bufer")).get(ch);
+        FileWriter writerL = new FileWriter("bufer", false);
+        writerL.write(String.valueOf(line32));
+        writerL.flush();
+        writerL.close();
 			System.out.println("get page finished - download");
 		System.out.println(line32);
-			Document pg = new Document(line32);//jsoup 
+        File buferInput = new File("bufer");
+        Document pg = Jsoup.parse(buferInput, "utf-8");
 			page = Integer.parseInt(pg.text()
 			.substring(0, pg.text()
-			.length() - 1));
-			
+			.length() - 2));
+        System.out.println(page);
 		return page;
 	}
 	
 	private static void downLoadBook(String bid,int page) throws IOException{
 		
 		for (int numb =1; numb <= page; numb++){
-		Document DBook = Jsoup.connect("http://www.ka4ka.ru/lib/index.php?")
+		Document DBook = Jsoup.connect("http://ka4ka.ru/lib/index.php?")
 		.data("mod","read_book")
 		.data("bid", bid)
 		.data("sym","9000")
@@ -94,30 +99,33 @@ public class Book
 				ch++;
 			}
 
+            FileWriter bookPagenumb = new FileWriter("bufer1", false);
+            bookPagenumb.write(String.valueOf(DBook));
+            bookPagenumb.flush();
+            bookPagenumb.close();
 
-			BufferedReader br = new BufferedReader(new FileReader(String.valueOf(DBook)));
-			BufferedWriter bw = new BufferedWriter(new FileWriter("bufer",true));//открываем для записи файл книги
+			BufferedReader br = new BufferedReader(new FileReader("bufer1"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("bufer2",true));//открываем для записи файл книги
 		// 40 строк в коде - текст, не относящийся к книге. line - все строки страницы минус 40 лишних
-            for(int i = 1; i != ch-40; i++){ // пока мы не дойдем до строки, где начинаеться лишние 40 строк
-			if (i<16){
-             int x = 0;	
-			}else{ 
-			if (i == ch-39){
+            for(int i = 1; i != ch-42; i++){ // пока мы не дойдем до строки, где начинаеться лишние 40 строк
+			if (i<17){
+                str=br.readLine();
+			}else {
+			/*if (i == ch-40){
 				str=br.readLine();
-				File string = new File(str);
-				Document setBook = Jsoup.parse(string,"UTF-8");
-				str = setBook.text();
-				bw.write(String.valueOf(setBook.text())+'\n');
-			   }else{
-			str=br.readLine();
-		    File string = new File(str);
-			Document setBook = Jsoup.parse(string,"UTF-8");
-            bw.write(String.valueOf(setBook.text())+'\n');//построчно записываем книгу в файл
-			double persent = page/100;
-			persent = numb/persent;
-			     System.out.println(persent + "%");
-			}
-			}
+				bw.write(str+'\n');
+			   }else{*/
+                str = br.readLine();
+
+                bw.write(str + '\n');//построчно записываем книгу в файл
+                float persent = page / 100;
+                System.out.println(persent + "procent");
+                persent = numb / persent;
+                System.out.println(persent + "%");
+
+            }
+
+
         }
         br.close();
         bw.close();
