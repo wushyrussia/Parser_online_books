@@ -132,9 +132,17 @@ public class Book
         br.close();
         bw.close();
 		}
+		File input = new File("bufer2");
+		Document setBook = Jsoup.parse(input,"UTF-8");
+		String nameBook = "book";
+		FileWriter fWriter = new FileWriter(nameBook+".txt", true);
+		fWriter.write(String.valueOf(setBook.text()));
+		fWriter.flush();
+
+
+			}
 		
-		
-	}
+	
 	
 	private static void getBook(){}
 	
