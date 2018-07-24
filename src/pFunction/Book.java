@@ -69,9 +69,11 @@ public class Book
         Document pg = Jsoup.parse(buferInput, "utf-8");
 			page = Integer.parseInt(pg.text()
 			.substring(0, pg.text()
-			.length() - 2));
-        System.out.println(page);
-		return page;
+			.length() - 1));
+        System.out.println("("+page+")");
+        Scanner pageFix = new Scanner(System.in);
+       String  page1 = pageFix.nextLine();
+		return Integer.parseInt(page1);
 	}
 	
 	private static void downLoadBook(String bid,int page) throws IOException{
@@ -121,7 +123,7 @@ public class Book
                 float persent = page / 100;
                 System.out.println(persent + "procent");
                 persent = numb / persent;
-                System.out.println(persent + "%");
+                System.out.println(persent + " of " +page);
 
             }
 
