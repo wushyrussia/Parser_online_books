@@ -1,17 +1,16 @@
-// class for android
 package pFunction;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
 import java.util.Scanner;
 import java.io.File;
 public class BookA
 {
-	
+
 
 	public static void createBookMain() throws Exception{
 
@@ -19,7 +18,7 @@ public class BookA
 		System.out.print("Set the BID of book:");
 		String bid = bidIn.next();
 		int page1 = 0;
-		
+
 
 		//set of bid
 		System.out.println("get page");
@@ -63,22 +62,22 @@ public class BookA
 		writer.write(String.valueOf(pageBook));
 		writer.flush();
 		writer.close();
-		 
+
 		FileInputStream fs= new FileInputStream("/storage/64D6-1231/AppProjects/Parser_online_books/src/buferN");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fs));
 		for(int i = 0; i < ch; ++i){
 			br.readLine();
-			}
+		}
 		String line32 = br.readLine();
-		
-	//	String line32 = Files.readAllLines(Paths.get("/storage/64D6-1231/AppProjects/Parser_online_books/src/bufer")).get(ch);
+
+		//	String line32 = Files.readAllLines(Paths.get("/storage/64D6-1231/AppProjects/Parser_online_books/src/bufer")).get(ch);
         FileWriter writerL = new FileWriter("/storage/64D6-1231/AppProjects/Parser_online_books/src/bufer3", false);
         writerL.write(String.valueOf(line32));
         writerL.flush();
         writerL.close();
 		System.out.println("get page finished - download");
 		System.out.println(line32);
-       
+
 		File buferInput = new File("/storage/64D6-1231/AppProjects/Parser_online_books/src/bufer3");
         Document pg = Jsoup.parse(buferInput, "utf-8");
 		page = Integer.parseInt(pg.text()
@@ -134,7 +133,7 @@ public class BookA
 					str = br.readLine();
 
 					bw.write(str + '\n');//построчно записываем книгу в файл
-					
+
 					System.out.println(numb + " of " +page);
 
 				}
@@ -146,7 +145,7 @@ public class BookA
 		}
 		File input = new File("/storage/64D6-1231/AppProjects/Parser_online_books/src/bufer2");
 		Document setBook = Jsoup.parse(input,"UTF-8");
-		FileWriter fWriter = new FileWriter("/storage/64D6-1231/AppProjects/Parser_online_books/src/"+getBook()+".txt", true);
+		FileWriter fWriter = new FileWriter("/storage/64D6-1231/Books/"+getBook()+".txt", true);
 		fWriter.write(String.valueOf(setBook.text()));
 		fWriter.flush();
 
@@ -161,68 +160,68 @@ public class BookA
 		BufferedReader br = new BufferedReader(new InputStreamReader(fs));
 		for(int i = 0; i < 16; ++i){
 			br.readLine();
-			}
+		}
 		String line32 = br.readLine();
 		nameAuthor = nameAuthor+line32+" ";
-	//	br.readLine();
+		//	br.readLine();
 		line32 = br.readLine();
 		nameAuthor = nameAuthor+line32;
 		FileWriter writerL = new FileWriter("/storage/64D6-1231/AppProjects/Parser_online_books/src/buferN", false);
         writerL.write(String.valueOf(nameAuthor));
         writerL.flush();
         writerL.close();
-		
+
 		File buferInput = new File("/storage/64D6-1231/AppProjects/Parser_online_books/src/buferN");
         Document pg = Jsoup.parse(buferInput, "utf-8");
 		nameAuthor = pg.text()
-								.substring(0, pg.text()
-										   .length());
-		
-		
-	
-		
-		
-		
+			.substring(0, pg.text()
+					   .length());
+
+
+
+
+
+
 		return nameAuthor;
 	}
 
-	private static void clearBufer(){
+	public static void clearBufer(){
 		try {
-			FileWriter fstream1 = new FileWriter("bufer");// конструктор с одним параметром - для перезаписи
+			FileWriter fstream1 = new FileWriter("/storage/64D6-1231/AppProjects/Parser_online_books/src/bufer");// конструктор с одним параметром - для перезаписи
 			BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
 			out1.write(""); // очищаем, перезаписав поверх пустую строку
 			out1.close(); // закрываем
 		} catch (Exception e)
 		{System.err.println("Error in file cleaning: " + e.getMessage());}
 		try {
-			FileWriter fstream1 = new FileWriter("bufer1");// конструктор с одним параметром - для перезаписи
+			FileWriter fstream1 = new FileWriter("/storage/64D6-1231/AppProjects/Parser_online_books/src/bufer1");// конструктор с одним параметром - для перезаписи
 			BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
 			out1.write(""); // очищаем, перезаписав поверх пустую строку
 			out1.close(); // закрываем
 		} catch (Exception e)
 		{System.err.println("Error in file cleaning: " + e.getMessage());}
 		try {
-			FileWriter fstream1 = new FileWriter("bufer2");// конструктор с одним параметром - для перезаписи
+			FileWriter fstream1 = new FileWriter("/storage/64D6-1231/AppProjects/Parser_online_books/src/bufer2");// конструктор с одним параметром - для перезаписи
 			BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
 			out1.write(""); // очищаем, перезаписав поверх пустую строку
 			out1.close(); // закрываем
 		} catch (Exception e)
 		{System.err.println("Error in file cleaning: " + e.getMessage());}
 		try {
-			FileWriter fstream1 = new FileWriter("bufer3");// конструктор с одним параметром - для перезаписи
+			FileWriter fstream1 = new FileWriter("/storage/64D6-1231/AppProjects/Parser_online_books/src/bufer3");// конструктор с одним параметром - для перезаписи
 			BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
 			out1.write(""); // очищаем, перезаписав поверх пустую строку
 			out1.close(); // закрываем
 		} catch (Exception e)
 		{System.err.println("Error in file cleaning: " + e.getMessage());}
 		try {
-			FileWriter fstream1 = new FileWriter("buferN");// конструктор с одним параметром - для перезаписи
+			FileWriter fstream1 = new FileWriter("/storage/64D6-1231/AppProjects/Parser_online_books/src/buferN");// конструктор с одним параметром - для перезаписи
 			BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
 			out1.write(""); // очищаем, перезаписав поверх пустую строку
 			out1.close(); // закрываем
 		} catch (Exception e)
 		{System.err.println("Error in file cleaning: " + e.getMessage());}
-		
+
 	}
 
 	private static void setNameBook(){}
